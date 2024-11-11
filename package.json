@@ -1,8 +1,7 @@
 {
-  "name": "learn-react-native-hoidanit",
+  "name": "learn-react-native",
   "author": {
-    "name": "Hỏi Dân IT",
-    "url": "https://hoidanit.vn"
+    "name": "nghia doan"
   },
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
