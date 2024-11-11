@@ -1,40 +1,79 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
-  const [count, setCount] = useState<number>(0)
-  const [name, setName] = useState<string>("")
+  const FOODLIST = [
+    'Apple',
+    'Banana',
+    'Pear',
+    'Orange',
+    'Grapes',
+    'Strawberry',
+    'Mango',
+    'Pineapple',
+    'Watermelon',
+    'Papaya',
+    'Cherry',
+    'Coconut',
+    'Milk',
+    'Rice',
+    'Sugar',
+    'Bread',
+    'Cheese',
+    'Tomato',
+    'Cucumber',
+    'Lettuce',
+    'Broccoli',
+    'Carrot',
+    'Corn',
+    'Onion',
+    'Garlic',
+    'Peas',
+    'Zucchini',
+    'Eggplant',
+    'Radish',
+    'Spinach',
+    'Broccoli',
+    'Bell Pepper',
+    'Cabbage',
+    'Sweet Potato',
+    'Corn',
+    'Kale',
+  ]
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Name: {name}</Text>
-      <TextInput style={styles.input} onChangeText={(value) => setName(value)} placeholder='Enter your name' maxLength={20} autoCorrect={false}/>
-      <Text style={styles.text}>count: {count}</Text>
-      <Button title='increase' onPress={() => setCount(count + 1)}/>
+      <FlatList
+        data={FOODLIST}
+        renderItem={({ item }) => (
+          <View 
+            style={{
+              backgroundColor: '#f2f2f2',
+              padding: 16,
+              borderRadius: 8,
+              marginBottom: 20,
+              width: '90%',
+              alignSelf: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Text style={styles.text}>{item}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff'
   },
   text: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 16,
   },
-  input: {
-    width: 200,
-    padding: 10,
-    borderColor: '#737373',
-    borderWidth: 1,
-    marginBottom: 16,
-    textDecorationLine: 'none',
-
-  }
 });
