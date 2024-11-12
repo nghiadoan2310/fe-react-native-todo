@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Alert, Button, FlatList, Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 interface Itodo {
   id: number;
@@ -25,9 +26,13 @@ export default function App() {
     }
   }
 
+  const handleRemoveItem = (id: number) => {
+    setItemArray(itemArray.filter(item => item.id!== id))
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View>
+      <View style={styles.container}>
         <Text style={styles.title}>To Do App</Text>
         <View>
           <TextInput 
@@ -40,26 +45,30 @@ export default function App() {
         <View style={styles.button}>
           <Button title="Add Item" onPress={handleAddItem} />
         </View>
-        <FlatList
-          data={itemArray}
-          renderItem={({ item }) => (
-            <View 
-              style={{
-                backgroundColor: '#f2f2f2',
-                padding: 16,
-                borderRadius: 8,
-                marginBottom: 20,
-                width: '90%',
-                alignSelf: 'center',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-            >
-              <Text style={styles.text}>{item.text}</Text>
-            </View>
-          )}
-        />
+        <View style={styles.todoList}>
+          <FlatList
+            data={itemArray}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <View 
+                style={{
+                  backgroundColor: '#f2f2f2',
+                  padding: 16,
+                  borderRadius: 8,
+                  marginBottom: 20,
+                  width: '90%',
+                  alignSelf: 'center',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <Text style={styles.text}>{item.text}</Text>
+                <AntDesign name="closecircle" size={24} color="red" onPress={() => handleRemoveItem(item.id)}/>
+              </View>
+            )}
+          />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -67,7 +76,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff'
+    height: '100%',
+    display: 'flex',
+    backgroundColor: '#fff',
   },
   title:{
     color: '#333',
@@ -75,11 +86,12 @@ const styles = StyleSheet.create({
     marginVertical: 25,
     fontSize: 40,
     backgroundColor: 'rgba(255, 255, 0, 0.4)',
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   text: {
     fontSize: 16,
     fontWeight: 'bold',
+
   },
   input: {
     marginBottom: 10,
@@ -98,5 +110,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
     paddingVertical: 10,
+  },
+  todoList: {
+    flex: 1
   }
 });
